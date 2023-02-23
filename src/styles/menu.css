@@ -1,0 +1,161 @@
+.menu-list * {
+    border-radius: 7px;
+}
+
+.menu-list {
+    list-style-type: none;
+}
+
+.menu-list {
+    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    padding: 6px;
+    width: calc(100%/3.1);
+    aspect-ratio: 16/9;
+    background: var(--card-primary);
+    box-shadow: 0 0 1px 2px var(--card-primary-dark);
+}
+
+.item-image {
+    width: 100%;
+    aspect-ratio: 16/6;
+    background: #ccc;
+    overflow: hidden;
+    position: relative;
+}
+
+.item-image img {
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    transform: translate(0%, -20%);
+}
+
+.item-header {
+    margin-top: 4px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.item-type {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0c0;
+}
+
+.item-type.NON {
+    background: #d12;
+}
+
+.item-header div:nth-of-type(2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.item-info div:first-child {
+    opacity: .7;
+    font-weight: 700;
+}
+
+/* .item-info div:nth-of-type(2) span {
+    color: #ec0;
+} */
+
+.item-info div:nth-of-type(2) span {
+    font-weight: 700;
+}
+
+.item-button-wrapper {
+    width: 100%;
+    height: 2.75em;
+}
+
+.item-button {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    border: none;
+    background: var(--btn-primary);
+    font-size: 1.2em;
+    color: #fff;
+    box-shadow: 0 0 1px 2px var(--btn-primary-dark);
+}
+
+.item-button:hover {
+    background: var(--btn-primary-dark);
+}
+
+
+.item-action-add {
+    width: 100%;
+    height: 2.7em;
+    display: flex;
+    gap: 6px;
+}
+
+.item-action-add button, .item-action-add input {
+    flex: 1;
+    height: 100%;
+    display: block;
+    outline: none;
+    border: none;
+}
+
+.action-btn {
+    cursor: pointer;
+}
+
+.item-action-add input {
+    appearance: textfield;
+    padding: 1em;
+}
+
+
+/** Filter  */
+.filter-container {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.filter-label {
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.filter {
+    font-size: .8em;
+}
+
+.filter label {
+    margin-left: 1em;
+}
+
+.filter label span {
+    margin-left: .5em;
+}
+
+.filter label input {
+    cursor: pointer;
+}
+
+.filter label input:checked {
+    outline: red;
+}
