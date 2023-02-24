@@ -1,4 +1,7 @@
 .loader-container {
+    top: 0;
+    left: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
@@ -7,15 +10,15 @@
 }
 
 .loader {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border: 3px solid;
     border-color: #000 #000 #fff #fff;
     border-radius: 50%;
-    animation: spin 450ms infinite 0s;
+    animation: spin-animation 450ms linear infinite;
 }
 
 @keyframes spin-animation {
-    0% { transform: rotate(0deg) }
-    100% { transform: rotate(360deg) }
+    to { transform: rotate(0deg) }
+    from { transform: rotate(360deg) }
 }

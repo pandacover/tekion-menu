@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const EditButton = ({ quantity, editQuantity }) => {
+const EditButton = ({ quantity = 0, editQuantity }) => {
     return (
 
         <div className="item-action-add">

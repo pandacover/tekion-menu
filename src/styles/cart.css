@@ -36,6 +36,7 @@
 }
 
 .cart-utility a {
+    font-size: 1em;
     display: flex;
     border-radius: 4px;
     align-items: center;
@@ -48,8 +49,8 @@
 }
 
 .cart-goto-home {
-    padding: 6px 8px 6px 4px;
     border: 1px solid #eee;
+    padding: 6px 8px 6px 4px;
     color: #666;
 }
 
