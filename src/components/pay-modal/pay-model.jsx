@@ -6,8 +6,8 @@ const PayModal = ({ totalCost, onMakePayment, onMakePurchase, loading }) => {
         <div className="paymodal-container">
             <div className="paymodal-msg">Make a payment of <strong>${totalCost}</strong></div>
             <div className="paymodal-action">
-                <button className="paymodal-action--confirm" onClick={onMakePayment} disabled={loading}>{loading ? <Loader /> : "Confirm"}</button>
-                <button className="paymodal-action--cancel" onClick={onMakePurchase}>Cancel</button>
+                <button className="default-button paymodal-action--confirm" onClick={onMakePayment} disabled={loading}>{loading ? <Loader /> : "Confirm"}</button>
+                <button className="default-button paymodal-action--cancel" onClick={onMakePurchase}>Cancel</button>
             </div>
         </div>
     )

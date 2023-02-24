@@ -21,3 +21,11 @@
     margin: 0 auto;
     max-width: 1368px;
 }
+
+.default-button {
+    border: none;
+    display: block;
+    cursor: pointer;
+    color: var(--btn-color);
+    background: var(--btn-bg);
+}

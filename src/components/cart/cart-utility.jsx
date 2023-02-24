@@ -10,12 +10,15 @@ const CartUtility = () => {
   const [isPurchase, setIsPurchase] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const totalCost = useMemo(() => cartItems.reduce((acc, item) => acc + item.count * item.price, 0), [cartItems]);
+  const totalCost = useMemo(
+    () => cartItems.reduce((acc, item) => acc + item.count * item.price, 0),
+    [cartItems]
+  );
 
   const onMakePayment = (e) => {
     setIsLoading(true);
-      makePaymentAPI(cartItems);
-      setIsPurchase(false);
+    makePaymentAPI(cartItems);
+    setIsPurchase(false);
     setIsLoading(false);
   };
 
@@ -31,23 +34,21 @@ const CartUtility = () => {
           <RxCaretLeft />
           Continue shopping
         </Link>
-        <Link
-          to="#"
-          className="cart-goto-pay"
-          onClick={onMakePurchase}
-        >
-          Make purchase
-          <RxCaretRight />
-        </Link>
+        {cartItems.length > 0 && (
+          <Link to="#" className="cart-goto-pay" onClick={onMakePurchase}>
+            Make purchase
+            <RxCaretRight />
+          </Link>
+        )}
       </div>
-      { isPurchase && 
-      <PayModal
-        totalCost={totalCost}
-        onMakePayment={onMakePayment}
-        onMakePurchase={onMakePurchase}
-        loading={isLoading}
-      />
-        }
+      {isPurchase && (
+        <PayModal
+          totalCost={totalCost}
+          onMakePayment={onMakePayment}
+          onMakePurchase={onMakePurchase}
+          loading={isLoading}
+        />
+      )}
     </>
   );
 };

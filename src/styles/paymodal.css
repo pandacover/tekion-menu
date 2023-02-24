@@ -24,12 +24,10 @@
 }
 
 .paymodal-action button {
-    border: none;
-    cursor: pointer;
     flex: 1;
     padding: 1em 0;
     font-size: 1.1rem;
-    color: #fff;
+    --btn-color: #fff;
 }
 
 .paymodal-action button:hover {
@@ -37,16 +35,16 @@
 }
 
 .paymodal-action--confirm {
-    position: relative;
     gap: 4px;
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
-    background-color: var(--btn-primary);
+    --btn-bg: var(--btn-primary);
 }
 
 .paymodal-action--confirm:disabled {
-    background-color: #ddd;
+    --btn-bg: #ddd;
 }
 
 .paymodal-action--confirm:disabled:hover {
@@ -55,5 +53,5 @@
 
 .paymodal-action--cancel {
     display: block;
-    background-color: #d22;
+    --btn-bg: #d22;
 }
