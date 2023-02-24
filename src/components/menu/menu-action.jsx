@@ -10,32 +10,62 @@ const MenuAction = ({ id }) => {
   const { cartItems, setCartItems } = useCartContext();
   const { menuData } = useMenuContext();
 
-  const cartItem = useMemo(() => cartItems.find(item => item.id === id), [cartItems, id]);
+  const cartItem = useMemo(
+    () => cartItems.find((item) => item.id === id),
+    [cartItems, id]
+  );
 
   function onAdd(e) {
-    setCartItems(upsertArray(cartItems, menuData.find(el => el.id === id)));
+    setCartItems(
+      upsertArray(
+        cartItems,
+        menuData.find((el) => el.id === id)
+      )
+    );
   }
 
   function editQuantity(e) {
     if (e.target.id === "action-add") {
-      setCartItems(upsertArray(cartItems, menuData.find(el => el.id === id)));
+      setCartItems(
+        upsertArray(
+          cartItems,
+          menuData.find((el) => el.id === id)
+        )
+      );
     } else if (e.target.id === "action-sub" && cartItems.length > 0) {
-      setCartItems(removeElement(cartItems, menuData.find(el => el.id === id)));
+      setCartItems(
+        removeElement(
+          cartItems,
+          menuData.find((el) => el.id === id)
+        )
+      );
     } else {
-      if(e.target.value)
-        setCartItems(upsertArray(cartItems, menuData.find(el => el.id === id), e.target.value));
+      if (e.target.value)
+        setCartItems(
+          upsertArray(
+            cartItems,
+            menuData.find((el) => el.id === id),
+            e.target.value
+          )
+        );
     }
   }
   return (
     <>
-      {!cartItem ? <AddButton onAdd={onAdd} id={id} /> : <EditButton quantity={cartItem ? cartItem.count : 0} editQuantity={editQuantity} />}
+      {!cartItem ? (
+        <AddButton onAdd={onAdd} id={id} />
+      ) : (
+        <EditButton
+          quantity={cartItem ? cartItem.count : 0}
+          editQuantity={editQuantity}
+        />
+      )}
     </>
   );
 };
 
-
 MenuAction.propTypes = {
-  id: PropTypes.string
-}
+  id: PropTypes.string,
+};
 
 export default MenuAction;

@@ -3,12 +3,14 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useCartContext } from "../../contexts/cart.context";
 import { makePaymentAPI } from "../../api";
 import PayModal from "../pay-modal/pay-model";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const CartUtility = () => {
   const { cartItems } = useCartContext();
   const [isPurchase, setIsPurchase] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const totalCost = useMemo(() => cartItems.reduce((acc, item) => acc + item.count * item.price, 0), [cartItems]);
 
   const onMakePayment = (e) => {
     setIsLoading(true);
@@ -40,10 +42,7 @@ const CartUtility = () => {
       </div>
       { isPurchase && 
       <PayModal
-        totalCost={cartItems.reduce(
-          (acc, item) => acc + item.count * item.price,
-          0
-        )}
+        totalCost={totalCost}
         onMakePayment={onMakePayment}
         onMakePurchase={onMakePurchase}
         loading={isLoading}

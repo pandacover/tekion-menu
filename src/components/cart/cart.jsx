@@ -1,8 +1,11 @@
 import { useCartContext } from "../../contexts/cart.context";
 import "../../styles/cart.css";
+import { useMemo } from "react";
 
 const Cart = () => {
   const { cartItems } = useCartContext();
+  const totalItems = useMemo(() => cartItems.reduce((acc, item) => acc + item.count, 0), [cartItems]);
+  const totalCost = useMemo(() => cartItems.reduce((acc, item) => acc + item.count * item.price, 0), [cartItems]);
   return (
     <>
       <ul className="cart-container">
@@ -25,10 +28,10 @@ const Cart = () => {
             Total
           </div>
           <div className="cart-item--count">
-            {cartItems.reduce((acc, item) => acc + item.count, 0)}
+            {totalItems}
           </div>
           <div className="cart-item--price">
-            ${cartItems.reduce((acc, item) => acc + item.price * item.count, 0)}
+            ${totalCost}
           </div>
         </li>
       </ul>
