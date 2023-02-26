@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const EditButton = ({ quantity = 0, editQuantity }) => {
+const EditButton = ({ quantity = 0, editQuantity, onInputQuant }) => {
     return (
 
         <div className="item-action-add">
@@ -12,7 +12,9 @@ const EditButton = ({ quantity = 0, editQuantity }) => {
             name=""
             id=""
             value={quantity}
-            onChange={editQuantity}
+            onKeyDown={editQuantity}
+            onChange={onInputQuant}
+            onClick={(e) => e.target.select()}
           />
           <button id="action-sub" className="action-btn" onClick={editQuantity}>
             -
@@ -24,6 +26,7 @@ const EditButton = ({ quantity = 0, editQuantity }) => {
 EditButton.propTypes = {
     quantity: PropTypes.number,
     editQuantity: function(){},
+    onInputQuant: function(){}
 }
 
 export default EditButton;

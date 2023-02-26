@@ -6,9 +6,10 @@ import PayModal from "../pay-modal/pay-model";
 import { useMemo, useState } from "react";
 
 const CartUtility = () => {
-  const { cartItems } = useCartContext();
+  const { cartItems, setCartItems } = useCartContext();
   const [isPurchase, setIsPurchase] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPayment, setIsPayment] = useState(false);
 
   const totalCost = useMemo(
     () => cartItems.reduce((acc, item) => acc + item.count * item.price, 0),
@@ -19,6 +20,8 @@ const CartUtility = () => {
     setIsLoading(true);
     makePaymentAPI(cartItems);
     setIsPurchase(false);
+    setCartItems([]);
+    setIsPayment(true);
     setIsLoading(false);
   };
 
@@ -29,6 +32,7 @@ const CartUtility = () => {
 
   return (
     <>
+      {isPayment && <h2>Thank you for shopping with us!</h2>}
       <div className="cart-utility">
         <Link className="cart-goto-home" to="/">
           <RxCaretLeft />

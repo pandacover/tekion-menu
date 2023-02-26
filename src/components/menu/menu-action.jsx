@@ -4,16 +4,21 @@ import { useCartContext } from "../../contexts/cart.context";
 import { useMenuContext } from "../../contexts/menu.context";
 import { upsertArray, removeElement } from "../../lib/updateArray";
 import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const MenuAction = ({ id }) => {
   const { cartItems, setCartItems } = useCartContext();
   const { menuData } = useMenuContext();
+  const [inputQuant, setInputQuant] = useState(0)
 
   const cartItem = useMemo(
     () => cartItems.find((item) => item.id === id),
     [cartItems, id]
   );
+
+  useEffect(() => {
+    setInputQuant(cartItem ? cartItem.count : 0);
+  }, [cartItem])
 
   function onAdd(e) {
     setCartItems(
@@ -40,15 +45,20 @@ const MenuAction = ({ id }) => {
         )
       );
     } else {
-      if (e.target.value)
+      if (e.key === "Enter") {
         setCartItems(
           upsertArray(
             cartItems,
             menuData.find((el) => el.id === id),
-            e.target.value
+            !e.target.value ? 0 : parseInt(e.target.value)
           )
         );
+          }
     }
+  }
+
+  function onInputQuant(e) {
+    setInputQuant(e.target.value ? parseInt(e.target.value) : 0);
   }
   return (
     <>
@@ -56,8 +66,9 @@ const MenuAction = ({ id }) => {
         <AddButton onAdd={onAdd} id={id} />
       ) : (
         <EditButton
-          quantity={cartItem ? cartItem.count : 0}
+          quantity={inputQuant}
           editQuantity={editQuantity}
+          onInputQuant={onInputQuant}
         />
       )}
     </>
