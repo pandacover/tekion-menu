@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import global from "../../config";
-import PropTypes from "prop-types";
-import { useCartContext } from "../../contexts/cart.context";
+import "./buttonLink.css";
+import React from "react";
 
 const ButtonLink = ({ children, classname, path, onClick }) => {
-  const { cartItems } = useCartContext();
-  if (classname === "cart-goto-pay" && cartItems.length <= 0) return;
+  const className = "button__link " + classname;
+
   return (
-    <Link className={classname} to={path} onClick={onClick}>
+    <Link className={className} to={path} onClick={onClick}>
       {children}
     </Link>
   );

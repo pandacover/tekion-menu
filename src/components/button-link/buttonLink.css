@@ -1,0 +1,25 @@
+a.button__link {
+  font-size: 1em;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  text-decoration: none;
+  opacity: 1;
+}
+
+a.button__link:hover {
+  opacity: 0.9;
+}
+
+.goto__home {
+  border: 1px solid #eee;
+  padding: 6px 8px 6px 4px;
+  color: #666;
+}
+
+.goto__pay {
+  color: #fff;
+  margin-left: auto;
+  padding: 2px 8px 2px 4px;
+  background: var(--btn-primary);
+}

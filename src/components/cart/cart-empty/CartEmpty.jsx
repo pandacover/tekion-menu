@@ -4,11 +4,11 @@ import "./cart-empty.css";
 
 const CartEmpty = () => {
   return (
-    <div className="cart-container cart-inner-container empty-cart-container">
-      <div className="empty-cart-icon">
+    <div className="cart cart__container empty__cart">
+      <div className="empty__cart__icon">
         <CartX />
       </div>
-      <div className="empty-cart-text">Cart is empty!</div>
+      <div className="empty__cart__text">Cart is empty!</div>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+.order__summary__header {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.order__summary__footer {
+  display: flex;
+  margin-top: 10px;
+}
