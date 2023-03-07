@@ -1,26 +1,24 @@
 import PropTypes from "prop-types";
-import global from "../../../config";
+import { noop } from "../../../config";
 
-const EditButton = ({ quantity = 0, editQuantity, onInputQuant }) => {
-  const selectInputOnClick = (e) => {
-    e.target.select();
-  };
-
+const EditButton = ({ onAdd, onRemove, quantity }) => {
   return (
-    <div className="item-action-add">
-      <button id="action-add" className="action-btn" onClick={editQuantity}>
+    <div className="card__action__button card__action__edit">
+      <button
+        id="action-add"
+        className="action__edit__add action__edit__item"
+        onClick={onAdd}
+      >
         +
       </button>
-      <input
-        type="number"
-        name=""
-        id=""
-        value={quantity}
-        onKeyDown={editQuantity}
-        onChange={onInputQuant}
-        onClick={selectInputOnClick}
-      />
-      <button id="action-sub" className="action-btn" onClick={editQuantity}>
+      <div className="action__button__quantity action__edit__item">
+        {quantity}
+      </div>
+      <button
+        id="action-sub"
+        className="action__edit__delete action__edit__item"
+        onClick={onRemove}
+      >
         -
       </button>
     </div>
@@ -28,13 +26,14 @@ const EditButton = ({ quantity = 0, editQuantity, onInputQuant }) => {
 };
 
 EditButton.defaultProps = {
-  editQuantity: global.noop,
+  onAdd: noop,
+  onRemove: noop,
 };
 
 EditButton.propTypes = {
+  onAdd: PropTypes.func,
+  onRemove: PropTypes.func,
   quantity: PropTypes.number,
-  editQuantity: PropTypes.func,
-  onInputQuant: PropTypes.func,
 };
 
 export default EditButton;

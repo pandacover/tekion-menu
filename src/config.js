@@ -1,5 +1,3 @@
-const global = {
-    noop: function(){},
-}
-
-export default global;
+export const noop = function () {};
+export const CART = "cart";
+export const MENU = "menu";

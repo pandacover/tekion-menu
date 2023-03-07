@@ -1,31 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-*::before, *, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*::before,
+*,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
 
-    --card-primary: #f9f9f9;
-    --card-primary-dark: #f7f7f7;
-    --btn-primary: #3336ff;
-    --btn-primary-dark: #3336dd;
+  --btn-primary: #3336ff;
+  --card-primary: #f9f9f9;
+  --btn-primary-dark: #3336dd;
+  --card-primary-dark: #f7f7f7;
 }
 
 .container {
-    width: 90vw;
-    margin: 0 auto;
-    max-width: 1368px;
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1368px;
 }
 
-.default-button {
-    border: none;
-    display: block;
-    cursor: pointer;
-    color: var(--btn-color);
-    background: var(--btn-bg);
+.default__button {
+  border: none;
+  display: block;
+  cursor: pointer;
+  color: var(--btn-color);
+  background: var(--btn-bg);
+  font-family: "Poppins", sans-serif;
 }

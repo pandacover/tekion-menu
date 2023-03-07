@@ -1,46 +1,61 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
 
 import TableRow from "./TableRow";
 import CartEmpty from "./cart-empty/CartEmpty";
+import { calculatePrice } from "./helpers";
+import { calculateQuantity } from "../helpers";
 
-import { useCartContext } from "../../contexts/cart.context";
+const Cart = ({ cart }) => {
+  const totalItems = useMemo(() => calculateQuantity(cart), [cart]);
+  const totalCost = useMemo(() => calculatePrice(cart), [cart]);
 
-const Cart = () => {
-  const { cartItems } = useCartContext();
-  const totalItems = useMemo(
-    () => cartItems.reduce((acc, item) => acc + item.count, 0),
-    [cartItems]
-  );
-  const totalCost = useMemo(
-    () => cartItems.reduce((acc, item) => acc + item.count * item.price, 0),
-    [cartItems]
-  );
+  const totalCostWithCurrency = "$" + totalCost;
 
-  if (cartItems.length <= 0) return <CartEmpty />;
+  const renderTableData = useCallback(({ id, name, quantity, price }) => {
+    const priceWithCurrency = "$" + price;
+
+    return (
+      <TableRow
+        key={id}
+        name={name}
+        count={quantity}
+        price={priceWithCurrency}
+      />
+    );
+  }, []);
+
+  if (cart.length <= 0) return <CartEmpty />;
 
   return (
     <>
-      <ul className="cart-container cart-inner-container">
+      <ul className="cart cart__container">
         <TableRow
-          classname="cart-header"
+          tabelRowContainerStyles="cart__header"
           name="Item"
           count="Quantity"
           price="Price"
         />
-        {cartItems.map(({ id, name, price, count }) => (
-          <TableRow key={id} name={name} count={count} price={price} />
-        ))}
+        {cart.map(renderTableData)}
       </ul>
-      <ul className="cart-container">
+      <ul className="cart">
         <TableRow
-          classname="cart-footer"
+          tabelRowContainerStyles="cart__footer"
           name="Total"
           count={totalItems}
-          price={totalCost}
+          price={totalCostWithCurrency}
         />
       </ul>
     </>
   );
+};
+
+Cart.defaultProps = {
+  cart: [],
+};
+
+Cart.propTypes = {
+  cart: PropTypes.array,
 };
 
 export default Cart;

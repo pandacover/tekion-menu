@@ -1,2 +1,3 @@
-export { default as HomePage } from "./Home";
-export { default as CartPage } from "./CartPage";
+export { default as MenuPage } from "./menu-page/MenuPage";
+export { default as CartPage } from "./cart-page/CartPage";
+export { default as OrderSummary } from "./order-summary/OrderSummary";
