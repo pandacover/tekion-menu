@@ -1,11 +1,11 @@
-.empty-cart-container {
-    color: #222;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
+.empty__cart {
+  color: #222;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.empty-cart-icon {
-    font-size: 4em;
+.empty__cart__icon {
+  font-size: 4em;
 }

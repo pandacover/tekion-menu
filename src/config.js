@@ -1,5 +1,5 @@
 const global = {
-    noop: function(){},
-}
+  noop: function () {},
+};
 
 export default global;
