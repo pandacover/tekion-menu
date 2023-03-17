@@ -1,87 +1,75 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-
+import { useCallback, useEffect, useMemo } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import AddButton from "./actions/AddButton";
 import EditButton from "./actions/EditButton";
+import { findElement } from "./helpers";
 
-import { useCartContext } from "../../contexts/cart.context";
-import { useMenuContext } from "../../contexts/menu.context";
-import updateArray from "../../lib/updateArray";
+import { selectCart } from "../../pages/cart-page/cart-redux/cart.selectors";
+import { selectMenu } from "../../pages/menu-page/menu-redux/menu.selectors";
+import {
+  addItem,
+  removeItem,
+} from "../../pages/cart-page/cart-redux/cart.actions";
 
-const MenuAction = ({ id }) => {
-  const { cartItems, setCartItems } = useCartContext();
-  const { menuData } = useMenuContext();
-  const [inputQuant, setInputQuant] = useState(0);
+import { CART, noop } from "../../config";
 
-  const checkEqual = useCallback((el) => el.id === id, [id]);
-
-  const cartItem = useMemo(
-    () => cartItems.find(checkEqual),
-    [cartItems, checkEqual]
+const MenuAction = ({ menu, cart, id, addItemAction, removeItemAction }) => {
+  const item = useMemo(() => findElement(menu, id), [menu, id]);
+  const cartItem = useMemo(() => findElement(cart, id), [cart, id]);
+  const quantity = useMemo(
+    () => (cartItem ? cartItem.quantity ?? 0 : 0),
+    [cartItem]
   );
 
-  const updateCartLocalStorage = useCallback(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems])
+  const onAdd = useCallback(() => {
+    addItemAction(item);
+  }, [addItemAction, item]);
+
+  const onRemove = useCallback(() => {
+    removeItemAction(item);
+  }, [removeItemAction, item]);
 
   useEffect(() => {
-    setInputQuant(cartItem ? cartItem.count : 0);
-    updateCartLocalStorage();
-  }, [cartItem, updateCartLocalStorage]);
+    try {
+      localStorage.setItem(CART, JSON.stringify(cart));
+    } catch (error) {
+      console.error(error);
+    }
+  }, [cart]);
 
-  const onAdd = useCallback(
-    (e) => {
-      setCartItems((prevItems) =>
-       updateArray(prevItems, menuData.find(checkEqual), 1)
-      );
-    },
-    [menuData, checkEqual]
-  );
+  if (!cartItem) return <AddButton onAdd={onAdd} />;
 
-  const editQuantity = useCallback(
-    (e) => {
-      const target = e.target;
-      if (target.id === "action-add") {
-        setCartItems((prevItems) =>
-          updateArray(prevItems, menuData.find(checkEqual), 1)
-        );
-      } else if (target.id === "action-sub" && cartItems.length > 0) {
-        setCartItems((prevItems) =>
-          updateArray(prevItems, menuData.find(checkEqual), -1)
-        );
-      } else {
-        if (e.key === "Enter") {
-          setCartItems((prevItems) =>
-            updateArray(
-              prevItems,
-              menuData.find(checkEqual),
-              !target.value ? 0 : parseInt(target.value)
-            )
-          );
-        }
-      }
-    },
-    [cartItems.length, menuData, checkEqual]
-  );
+  return <EditButton onAdd={onAdd} onRemove={onRemove} quantity={quantity} />;
+};
 
-  const onInputQuant = (e) => {
-    setInputQuant(e.target.value ? parseInt(e.target.value) : 0);
-  };
-
-  if (!cartItem || cartItem.length === 0) return <AddButton onAdd={onAdd} />;
-
-  return (
-    <EditButton
-      quantity={inputQuant}
-      editQuantity={editQuantity}
-      onInputQuant={onInputQuant}
-    />
-  );
+MenuAction.defaultProps = {
+  cart: [],
+  menu: [],
+  addItemAction: noop,
+  removeItemAction: noop,
 };
 
 MenuAction.propTypes = {
+  cart: PropTypes.array,
+  menu: PropTypes.array,
   id: PropTypes.string,
+  addItemAction: PropTypes.func,
+  removeItemAction: PropTypes.func,
 };
 
-export default MenuAction;
+const mapStateToProps = (state) => {
+  const menu = selectMenu(state);
+  const cart = selectCart(state);
+  return { menu, cart };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemAction: (item) => dispatch(addItem(item)),
+    removeItemAction: (item) => dispatch(removeItem(item)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuAction);

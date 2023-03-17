@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { RiShoppingCartLine as IconCart } from "react-icons/ri";
 
-import { useCartContext } from "../../../contexts/cart.context";
-import { useTotalCount } from "../../../hooks";
-
 import "./cart-icon.css";
-import { useMemo } from "react";
 
-const CartIcon = () => {
-  const { cartItems } = useCartContext();
-  const totalCount = useTotalCount(cartItems);
-  const isTotalCountVisible = useMemo(() => totalCount > 0, [totalCount]);
+const CartIcon = ({ totalCartSize }) => {
+  const isTotalCountVisible = totalCartSize > 0;
 
   return (
     <Link to="/cart" className="cart-icon-container">
       <div className="cart-icon">
         <IconCart />
       </div>
-      {isTotalCountVisible && <div className="cart-quantity">{totalCount}</div>}
+      {isTotalCountVisible && (
+        <div className="cart-quantity">{totalCartSize}</div>
+      )}
     </Link>
   );
+};
+
+CartIcon.propTypes = {
+  totalCartSize: PropTypes.number,
 };
 
 export default CartIcon;

@@ -1,3 +1,3 @@
-const ImagePlaceholder = () => <div className="image-placeholder" />
+const ImagePlaceholder = () => <div className="image__placeholder" />;
 
 export default ImagePlaceholder;

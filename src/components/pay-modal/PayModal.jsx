@@ -1,29 +1,24 @@
 import PropTypes from "prop-types";
+import { noop } from "../../config";
+import "./pay-modal.css";
 
-import "./PayModal.css";
-import global from "../../config";
-
-const PayModal = ({
-  totalCost,
-  onMakePayment,
-  onMakePurchase,
-  isPurchase,
-}) => {
+const PayModal = ({ totalCost, onMakePayment, onMakePurchase, isPurchase }) => {
   if (!isPurchase) return;
+
   return (
-    <div className="paymodal-container">
-      <div className="paymodal-msg">
-        Make a payment of <strong>${totalCost}</strong>
+    <div className="paymodal">
+      <div className="paymodal__message">
+        Make a payment of <strong>${totalCost}</strong>?
       </div>
-      <div className="paymodal-action">
+      <div className="paymodal-action paymodal__action">
         <button
-          className="default-button paymodal-action--confirm"
+          className="default__button paymodal__action__confirm"
           onClick={onMakePayment}
         >
-          "Confirm"
+          Confirm
         </button>
         <button
-          className="default-button paymodal-action--cancel"
+          className="default__button paymodal__action__cancel"
           onClick={onMakePurchase}
         >
           Cancel
@@ -34,9 +29,9 @@ const PayModal = ({
 };
 
 PayModal.defaultProps = {
-  onMakePayment: global.noop,
-  onMakePurchase: global.noop
-}
+  onMakePayment: noop,
+  onMakePurchase: noop,
+};
 
 PayModal.propTypes = {
   totalCost: PropTypes.number,

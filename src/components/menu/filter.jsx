@@ -1,35 +1,44 @@
-import global from "../../config";
+import { noop } from "../../config";
 import PropTypes from "prop-types";
 import FilterEnum from "./FilterEnum";
 
-const Filter = ({ triggerSetFilter, filterAllRef }) => {
+const Filter = ({ triggerSetFilter, filter }) => {
+  const isAllChecked = filter === FilterEnum.ALL;
+  const isVegChecked = filter === FilterEnum.VEG;
+  const isNonVegChecked = filter === FilterEnum.NONVEG;
+
   return (
-    <div className="filter">
-      <label htmlFor="ALL">
+    <div className="filter__container">
+      <label htmlFor="ALL" className="filter__name">
         <input
           type="radio"
           name="filter"
           id="all"
-          ref={filterAllRef}
+          className="filter__input"
           onChange={() => triggerSetFilter(FilterEnum.ALL)}
+          checked={isAllChecked}
         />
         <span>All</span>
       </label>
-      <label htmlFor="veg">
+      <label htmlFor="veg" className="filter__name">
         <input
           type="radio"
           name="filter"
           id="veg"
+          className="filter__input"
           onChange={() => triggerSetFilter(FilterEnum.VEG)}
+          checked={isVegChecked}
         />
         <span>Veg</span>
       </label>
-      <label htmlFor="non-veg">
+      <label htmlFor="non-veg" className="filter__name">
         <input
           type="radio"
           name="filter"
           id="non-veg"
+          className="filter__input"
           onChange={() => triggerSetFilter(FilterEnum.NONVEG)}
+          checked={isNonVegChecked}
         />
         <span>Non Veg</span>
       </label>
@@ -38,8 +47,8 @@ const Filter = ({ triggerSetFilter, filterAllRef }) => {
 };
 
 Filter.defaultProps = {
-  triggerSetFilter: global.noop
-}
+  triggerSetFilter: noop,
+};
 
 Filter.propTypes = {
   triggerSetFilter: PropTypes.func,
